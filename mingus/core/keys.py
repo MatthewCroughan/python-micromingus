@@ -66,7 +66,7 @@ def get_key(accidentals=0):
     accidentals put as input, and his relative minor; negative numbers for
     flats, positive numbers for sharps.
     """
-    if accidentals not in range(-7, 8):
+    if accidentals not in list(range(-7, 8)):
         raise RangeError('integer not in range (-7)-(+7).')
     return keys[accidentals+7]
 
@@ -106,15 +106,14 @@ def get_notes(key='C'):
     >>> get_notes('c')
     ['C', 'D', 'Eb', 'F', 'G', 'Ab', 'Bb']
     """
-    if _key_cache.has_key(key):
+    if key in _key_cache:
         return _key_cache[key]
     if not is_valid_key(key):
         raise NoteFormatError("unrecognized format for key '%s'" % key)
     result = []
 
     # Calculate notes
-    altered_notes = map(lambda x: x[0],
-            get_key_signature_accidentals(key))
+    altered_notes = [x[0] for x in get_key_signature_accidentals(key)]
 
     if get_key_signature(key) < 0:
         symbol = 'b'
