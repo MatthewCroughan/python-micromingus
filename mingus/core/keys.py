@@ -113,7 +113,7 @@ def get_notes(key='C'):
     result = []
 
     # Calculate notes
-    altered_notes = map(operator.itemgetter(0),
+    altered_notes = map(lambda x: x[0],
             get_key_signature_accidentals(key))
 
     if get_key_signature(key) < 0:
